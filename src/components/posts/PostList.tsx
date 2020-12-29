@@ -1,5 +1,5 @@
 import * as React from "react";
-import { IPost } from "../../types";
+import { IPost } from "../../stores";
 
 export type PostListProps = {
   posts: IPost[];

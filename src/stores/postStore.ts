@@ -6,53 +6,69 @@ import {
   useSetRecoilState,
 } from "recoil";
 import { addComment, fetchComments, fetchPost, fetchPosts } from "../api";
-import { IComment, IPost } from "../types";
+
+export interface IPost {
+  id: number;
+  userId: number;
+  title: string;
+  body: string;
+  comments: IComment[];
+}
+
+export interface IComment {
+  id: number;
+  postId: number;
+  name: string;
+  email: string;
+  body: string;
+}
+
 
 const postListState = atom<IPost[]>({
   key: "postListState",
   default: fetchPosts(),
 });
 
-const currentPostIdState = atom<number | undefined>({
-  key: "currentPostIdInternalState",
+const selectedPostIdState = atom<number | undefined>({
+  key: "selectedPostIdInternalState",
   default: undefined,
 });
 
-const currentPostRequestIdState = atom<number>({
-  key: "currentPostCommentListStateRequestId",
+const selectedPostRequestIdState = atom<number>({
+  key: "selectedPostRequestIdState",
   default: 0,
 });
 
-const currentPostState = selector<IPost | undefined>({
-  key: "currentPostState",
+const selectedPostState = selector<IPost | undefined>({
+  key: "selectedPostState",
   get: async ({ get }) => {
-    get(currentPostRequestIdState);
-    const postId = get(currentPostIdState);
+    get(selectedPostRequestIdState);
+    const postId = get(selectedPostIdState);
     return postId ? await fetchPost(postId) : undefined;
   },
 });
 
-const currentPostCommentListState = selector<IComment[]>({
-  key: "currentPostCommentListState",
+const selectedPostCommentListState = selector<IComment[]>({
+  key: "selectedPostCommentListState",
   get: async ({ get }) => {
-    get(currentPostRequestIdState);
-    const postId = get(currentPostIdState);
+    get(selectedPostRequestIdState);
+    const postId = get(selectedPostIdState);
     return postId ? await fetchComments(postId!) : [];
   },
 });
 
 export function usePostStore() {
-  const [postId, setPostId] = useRecoilState(currentPostIdState);
-  const current = useRecoilValue(currentPostState);
+  const [postId, setPostId] = useRecoilState(selectedPostIdState);
+  const selectedPost = useRecoilValue(selectedPostState);
   const allPosts = useRecoilValue(postListState);
-  const comments = useRecoilValue(currentPostCommentListState);
-  const setCurrentPostRequestId = useSetRecoilState(currentPostRequestIdState);
+  const comments = useRecoilValue(selectedPostCommentListState);
+  const setselectedPostRequestId = useSetRecoilState(selectedPostRequestIdState);
   const refreshPost = () =>
-    setCurrentPostRequestId((requestID) => requestID + 1);
+    setselectedPostRequestId((requestID) => requestID + 1);
 
   return {
     allPosts,
-    selectedPost: current ? { ...current, comments } : undefined,
+    selectedPost: selectedPost ? { ...selectedPost, comments } : undefined,
     refreshPost,
     selectPost: (id: number | undefined) => setPostId(id),
     addComment: (commentText: string) => {
