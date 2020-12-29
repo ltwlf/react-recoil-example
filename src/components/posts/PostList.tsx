@@ -1,5 +1,5 @@
 import * as React from "react";
-import { IPost } from "../types";
+import { IPost } from "../../types";
 
 export type PostListProps = {
   posts: IPost[];
@@ -13,12 +13,15 @@ export const PostList = ({ posts, onClick }: PostListProps) => {
     }
   };
   return (
-    <ul>
-      {posts.map((post) => (
-        <li key={post.id} onClick={() => handleClick(post.id)}>
-          {post.title}
-        </li>
-      ))}
-    </ul>
+    <>
+      <h1>Posts</h1>
+      <ul className="posts">
+        {posts.map((post) => (
+          <li key={post.id} onClick={() => handleClick(post.id)}>
+            {post.title}
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };
