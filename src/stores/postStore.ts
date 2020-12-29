@@ -23,7 +23,6 @@ export interface IComment {
   body: string;
 }
 
-
 const postListState = atom<IPost[]>({
   key: "postListState",
   default: fetchPosts(),
@@ -62,9 +61,11 @@ export function usePostStore() {
   const selectedPost = useRecoilValue(selectedPostState);
   const allPosts = useRecoilValue(postListState);
   const comments = useRecoilValue(selectedPostCommentListState);
-  const setselectedPostRequestId = useSetRecoilState(selectedPostRequestIdState);
+  const setSelectedPostRequestId = useSetRecoilState(
+    selectedPostRequestIdState
+  );
   const refreshPost = () =>
-    setselectedPostRequestId((requestID) => requestID + 1);
+    setSelectedPostRequestId((requestID) => requestID + 1);
 
   return {
     allPosts,
