@@ -14,11 +14,15 @@ export const PostDetails = () => {
   }
 
   return (
-    <div>
+    <div role="article">
       <h1>{selected.title}</h1>
       <div>{selected.body}</div>
-      <button onClick={() => select(undefined)}>back</button>
-      <button onClick={refresh}>refresh</button>
+      <button name="back" onClick={() => select(undefined)} role="button">
+        back
+      </button>
+      <button name="refresh" onClick={refresh} role="button">
+        refresh
+      </button>
     </div>
   );
 };
@@ -28,9 +32,9 @@ export const PostList = () => {
   return (
     <>
       <h1>Posts</h1>
-      <ul className="posts">
+      <ul className="posts" role="list">
         {posts.map((post) => (
-          <li key={post.id} onClick={() => select(post.id)}>
+          <li key={post.id} onClick={() => select(post.id)} role="listitem">
             {post.title}
           </li>
         ))}
