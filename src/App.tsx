@@ -1,21 +1,17 @@
 import React, { Suspense } from "react";
 import "./App.css";
 import { RecoilRoot } from "recoil";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Posts } from "./pages";
+import { Comments, Posts } from "./components";
 
 function App() {
   return (
     <RecoilRoot>
-      <Router>
-        <Suspense fallback={() => <div>loading...</div>}>
-        <Switch>
-          <Route path="/">
-            <Posts />
-          </Route>
-        </Switch>
-        </Suspense>
-      </Router>
+      <Suspense fallback={<h2>loading...</h2>}>
+        <Posts />
+        <React.Suspense fallback={<h3>loading comments...</h3>}>
+          <Comments />
+        </React.Suspense>
+      </Suspense>
     </RecoilRoot>
   );
 }
