@@ -1,39 +1,44 @@
 import * as React from "react";
-import { usePostStore } from "../../stores";
-import { AddComment } from "./AddComment";
-import { CommentList } from "./CommentList";
-import { PostDetails } from "./PostDetails";
-import { PostList } from "./PostList";
+import { Comments } from "./Comments";
+import { usePosts } from "../../hooks";
 
 export const Posts = () => {
-  const {
-    allPosts,
-    selectPost,
-    selectedPost,
-    addComment,
-    refreshPost,
-  } = usePostStore();
+  const { selected } = usePosts();
+  return <div>{selected ? <PostDetails /> : <PostList />}</div>;
+};
 
-  const handlePostClick = (postId: number) => selectPost(postId);
-  const handleBackClick = () => selectPost(undefined);
-  const handlePostComment = (comment: string) => addComment(comment);
-  const handleRefreshClick = () => refreshPost();
+export const PostDetails = () => {
+  const { selected, select, refresh } = usePosts();
+
+  if (!selected) {
+    return <h1>Post not found.</h1>;
+  }
 
   return (
     <div>
-      {selectedPost ? (
-        <>
-          <PostDetails
-            post={selectedPost}
-            onBackClick={handleBackClick}
-            onRefreshClick={handleRefreshClick}
-          />
-          <CommentList comments={selectedPost.comments} />
-          <AddComment onAddComment={handlePostComment} />
-        </>
-      ) : (
-        <PostList posts={allPosts} onClick={handlePostClick} />
-      )}
+      <h1>{selected.title}</h1>
+      <div>{selected.body}</div>
+      <button onClick={() => select(undefined)}>back</button>
+      <button onClick={refresh}>refresh</button>
+      <React.Suspense fallback={<h3>loading comments...</h3>}>
+        <Comments />
+      </React.Suspense>
     </div>
+  );
+};
+
+export const PostList = () => {
+  const { posts, select } = usePosts();
+  return (
+    <>
+      <h1>Posts</h1>
+      <ul className="posts">
+        {posts.map((post) => (
+          <li key={post.id} onClick={() => select(post.id)}>
+            {post.title}
+          </li>
+        ))}
+      </ul>
+    </>
   );
 };

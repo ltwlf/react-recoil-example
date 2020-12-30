@@ -1,18 +1,33 @@
 import * as React from "react";
 import { useState } from "react";
+import { useComments } from "../../hooks";
 
-export type AddCommentProps = {
-  onAddComment: (text: string) => void;
+export const Comments = () => {
+  const { comments, refresh } = useComments();
+  return (
+    <div>
+      <h2>Comments</h2>
+      <ul>
+        {comments.map((comment) => (
+          <li>{comment.body}</li>
+        ))}
+      </ul>
+      <button onClick={refresh}>refresh comments</button>
+      <AddComment />
+    </div>
+  );
 };
 
-export const AddComment = ({ onAddComment }: AddCommentProps) => {
+const AddComment = () => {
+  const { addComment } = useComments();
   const [text, setText] = useState("");
+
   const handleOnChange = ({
     target: { value },
   }: React.ChangeEvent<HTMLTextAreaElement>) => setText(value);
 
   const handlePostClick = () => {
-    onAddComment(text);
+    addComment(text);
     setText("");
   };
   return (
