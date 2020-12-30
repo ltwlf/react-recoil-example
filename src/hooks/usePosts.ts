@@ -1,5 +1,5 @@
 import { atom, selector, useRecoilValue, useSetRecoilState } from "recoil";
-import { fetchPost, fetchPosts } from "../api";
+import { fetchPost, fetchPosts } from "../services";
 
 export interface IPost {
   id: number;

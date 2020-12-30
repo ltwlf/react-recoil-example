@@ -1,5 +1,5 @@
 import { atom, selector, useRecoilValue, useSetRecoilState } from "recoil";
-import { addComment, fetchComments } from "../api";
+import { addComment, fetchComments } from "../services";
 import { selectedPostIdState, selectedPostRequestIdState } from "./usePosts";
 
 export interface IComment {

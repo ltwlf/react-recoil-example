@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import { useComments } from "../../hooks";
+import { useComments } from "../hooks";
 
 export const Comments = () => {
   const { comments, refresh } = useComments();
