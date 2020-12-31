@@ -1,4 +1,4 @@
-# Recoil Example
+# Recoil State Management Example
 
 ![Node.js CI](https://github.com/ltwlf/react-recoil-example/workflows/Node.js%20CI/badge.svg)
 
