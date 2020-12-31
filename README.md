@@ -2,9 +2,9 @@
 
 ![Node.js CI](https://github.com/ltwlf/react-recoil-example/workflows/Node.js%20CI/badge.svg)
 
-I used this project to test and learn [Recoil](https://recoiljs.org/). First I found it frustrating to work with atoms and selectors in components, but in the end I was happy with encapsulating the Recoil api in custom hooks.
-I used posts and comments from https://jsonplaceholder.typicode.com as mock api. When you add comments the will not be really saved.
-The example has zero styling and is not perfect, but helped me to get familiar with Recoil.
+I used this project to test and learn [Recoil](https://recoiljs.org/). First I found it frustrating to work with atoms and selectors in components, but in the end, I was happy with encapsulating the Recoil API in custom hooks.
+I used posts and comments from https://jsonplaceholder.typicode.com as mock API. When you add comments they will not be really saved.
+The example has zero stylings and is not perfect, but helped me to get familiar with Recoil.
 
 ## Usage
 
