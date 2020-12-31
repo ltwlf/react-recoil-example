@@ -32,9 +32,9 @@ export const PostList = () => {
   return (
     <>
       <h1>Posts</h1>
-      <ul className="posts" role="list">
+      <ul className="posts">
         {posts.map((post) => (
-          <li key={post.id} onClick={() => select(post.id)} role="listitem">
+          <li key={post.id} onClick={() => select(post.id)}>
             {post.title}
           </li>
         ))}

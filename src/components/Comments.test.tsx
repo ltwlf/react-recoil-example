@@ -44,7 +44,7 @@ describe("Comments Component", () => {
     );
 
     await waitFor(() =>
-      expect(screen.queryAllByRole("comment").length).toBe(1)
+      expect(screen.queryAllByRole("listitem").length).toBe(1)
     );
   });
 
@@ -62,7 +62,7 @@ describe("Comments Component", () => {
     userEvent.click(screen.getByRole("button", { name: "Post" }));
 
     await waitFor(() =>
-      expect(screen.queryAllByRole("comment").length).toBe(2)
+      expect(screen.queryAllByRole("listitem").length).toBe(2)
     );
   });
 });

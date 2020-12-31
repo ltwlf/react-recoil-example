@@ -7,11 +7,9 @@ export const Comments = () => {
   return (
     <div>
       <h2>Comments</h2>
-      <ul role="list" aria-label="comments">
+      <ul aria-label="comments">
         {comments.map((comment) => (
-          <li key={comment.id} role="comment">
-            {comment.body}
-          </li>
+          <li key={comment.id}>{comment.body}</li>
         ))}
       </ul>
       <button onClick={refresh}>refresh comments</button>
