@@ -17,10 +17,10 @@ export const PostDetails = () => {
     <div role="article">
       <h1>{selected.title}</h1>
       <div>{selected.body}</div>
-      <button name="back" onClick={() => select(undefined)} role="button">
+      <button name="back" onClick={() => select(undefined)}>
         back
       </button>
-      <button name="refresh" onClick={refresh} role="button">
+      <button name="refresh" onClick={refresh}>
         refresh
       </button>
     </div>
