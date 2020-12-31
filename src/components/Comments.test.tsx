@@ -4,12 +4,16 @@ import { setupServer } from "msw/node";
 import { Comments } from "./Comments";
 import { usePosts } from "../hooks/usePosts";
 import { TestApp } from "../../tests/helpers";
-import { handlers } from "../../tests/handlers";
+import { handlers, resetData } from "../../tests/handlers";
+import userEvent from "@testing-library/user-event";
 
 const server = setupServer(...handlers);
 
 beforeAll(() => server.listen());
-afterEach(() => server.resetHandlers());
+afterEach(() => {
+  server.resetHandlers();
+  resetData();
+});
 afterAll(() => server.close());
 
 describe("Comments Component", () => {
@@ -41,6 +45,24 @@ describe("Comments Component", () => {
 
     await waitFor(() =>
       expect(screen.queryAllByRole("comment").length).toBe(1)
+    );
+  });
+
+  it("should add a comment", async () => {
+    render(
+      <TestApp>
+        <SelectPost id={1000} />
+        <Comments />
+      </TestApp>
+    );
+
+    await screen.findByText("Comments");
+
+    userEvent.type(screen.getByRole("textbox"), "Pretty awesome!");
+    userEvent.click(screen.getByRole("button", { name: "Post" }));
+
+    await waitFor(() =>
+      expect(screen.queryAllByRole("comment").length).toBe(2)
     );
   });
 });
