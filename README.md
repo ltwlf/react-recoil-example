@@ -6,6 +6,8 @@ I used this project to test and learn [Recoil](https://recoiljs.org/). First I f
 I used posts and comments from https://jsonplaceholder.typicode.com as mock API. When you add comments they will not be really saved.
 The example has zero stylings and is not perfect, but helped me to get familiar with Recoil.
 
+[![Gitpod ready-to-code](https://img.shields.io/badge/Gitpod-ready--to--code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/ltwlf/react-recoil-example)
+
 ## Usage
 
 In the project directory, you can run:
