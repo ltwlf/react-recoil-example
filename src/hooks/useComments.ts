@@ -1,13 +1,10 @@
 import {
-  atom,
   atomFamily,
-  selector,
   selectorFamily,
   useRecoilValue,
   useSetRecoilState,
 } from "recoil";
 import { addComment, fetchComments } from "../services";
-import { selectedPostIdState, selectedPostRequestIdState } from "./usePosts";
 
 export interface IComment {
   id: number;

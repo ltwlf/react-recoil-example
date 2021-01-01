@@ -2,7 +2,6 @@ import * as React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import { setupServer } from "msw/node";
 import { Comments } from "./Comments";
-import { usePosts } from "../hooks/usePosts";
 import { TestApp } from "../../tests/helpers";
 import { handlers, resetData } from "../../tests/handlers";
 import userEvent from "@testing-library/user-event";
