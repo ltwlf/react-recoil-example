@@ -1,4 +1,11 @@
-import { atom, selector, useRecoilValue, useSetRecoilState } from "recoil";
+import {
+  atom,
+  atomFamily,
+  selector,
+  selectorFamily,
+  useRecoilValue,
+  useSetRecoilState,
+} from "recoil";
 import { addComment, fetchComments } from "../services";
 import { selectedPostIdState, selectedPostRequestIdState } from "./usePosts";
 
@@ -10,29 +17,25 @@ export interface IComment {
   body: string;
 }
 
-const selectedPostCommentListRequestIdState = atom<number>({
-  key: "selectedPostCommentListRequestIdState",
+const postCommentListRequestIdState = atomFamily<number, number>({
+  key: "postCommentListRequestIdState",
   default: 0,
 });
 
-export const selectedPostCommentListState = selector<IComment[]>({
+export const postCommentListState = selectorFamily<IComment[], number>({
   key: "selectedPostCommentListState",
-  get: async ({ get }) => {
-    get(selectedPostRequestIdState);
-    get(selectedPostCommentListRequestIdState);
-    const postId = get(selectedPostIdState);
-    return postId ? await fetchComments(postId!) : [];
+  get: (postId) => ({ get }) => {
+    get(postCommentListRequestIdState(postId));
+    return fetchComments(postId);
   },
 });
 
-export function useComments() {
-  const postId = useRecoilValue(selectedPostIdState);
-  const comments = useRecoilValue(selectedPostCommentListState);
-  const selectedPostCommentListRequestId = useSetRecoilState(
-    selectedPostCommentListRequestIdState
+export function useComments(postId: number) {
+  const comments = useRecoilValue(postCommentListState(postId));
+  const postCommentListRequestId = useSetRecoilState(
+    postCommentListRequestIdState(postId)
   );
-  const refresh = () =>
-    selectedPostCommentListRequestId((requestID) => requestID + 1);
+  const refresh = () => postCommentListRequestId((requestID) => requestID + 1);
 
   return {
     comments,

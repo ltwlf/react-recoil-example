@@ -1,5 +1,6 @@
 import * as React from "react";
 import { usePosts } from "../hooks";
+import { Comments } from "./Comments";
 
 export const Posts = () => {
   const { selected } = usePosts();
@@ -23,6 +24,9 @@ export const PostDetails = () => {
       <button name="refresh" onClick={refresh}>
         refresh
       </button>
+      <React.Suspense fallback={<h3>loading comments...</h3>}>
+        <Comments postId={selected.id} />
+      </React.Suspense>
     </div>
   );
 };

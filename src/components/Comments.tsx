@@ -2,8 +2,10 @@ import * as React from "react";
 import { useState } from "react";
 import { useComments } from "../hooks";
 
-export const Comments = () => {
-  const { comments, refresh } = useComments();
+export type CommentsProps = { postId: number };
+
+export const Comments = ({ postId }: CommentsProps) => {
+  const { comments, refresh } = useComments(postId);
   return (
     <div>
       <h2>Comments</h2>
@@ -13,13 +15,13 @@ export const Comments = () => {
         ))}
       </ul>
       <button onClick={refresh}>refresh comments</button>
-      <AddComment />
+      <AddComment postId={postId} />
     </div>
   );
 };
 
-const AddComment = () => {
-  const { addComment } = useComments();
+const AddComment = ({ postId }: CommentsProps) => {
+  const { addComment } = useComments(postId);
   const [text, setText] = useState("");
 
   const handleOnChange = ({

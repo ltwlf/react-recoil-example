@@ -3,7 +3,7 @@ import { postListFixture, commentListFixtures } from "./fixtures";
 
 const baseUrl = `https://jsonplaceholder.typicode.com`;
 
-let comments = { ...commentListFixtures };
+let comments = [...commentListFixtures];
 
 export const resetData = () => {
   comments = commentListFixtures;

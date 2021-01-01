@@ -17,29 +17,10 @@ afterEach(() => {
 afterAll(() => server.close());
 
 describe("Comments Component", () => {
-  const SelectPost = ({ id }: { id: number }) => {
-    const { select } = usePosts();
-    React.useEffect(() => select(id), []);
-    return null;
-  };
-
-  it("should show empty comments", async () => {
-    render(
-      <TestApp>
-        <Comments />
-      </TestApp>
-    );
-
-    await waitFor(() =>
-      expect(screen.queryAllByRole("comment").length).toBe(0)
-    );
-  });
-
   it("should show comments", async () => {
     render(
       <TestApp>
-        <SelectPost id={1000} />
-        <Comments />
+        <Comments postId={1000} />
       </TestApp>
     );
 
@@ -51,8 +32,7 @@ describe("Comments Component", () => {
   it("should add a comment", async () => {
     render(
       <TestApp>
-        <SelectPost id={1000} />
-        <Comments />
+        <Comments postId={1000} />
       </TestApp>
     );
 
